@@ -1,6 +1,9 @@
 import React from 'react';
 import Head from 'next/dist/next-server/lib/head';
 import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClientProvider, QueryClient } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const MyApp = ({ Component, pageProps }: any) => (
   <React.Fragment>
@@ -16,7 +19,9 @@ const MyApp = ({ Component, pageProps }: any) => (
       `}
     </style>
     <ChakraProvider>
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </ChakraProvider>
   </React.Fragment>
 );

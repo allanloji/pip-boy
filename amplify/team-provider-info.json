@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pipboy-dev-204709-authRole",
+      "UnauthRoleArn": "arn:aws:iam::720470672591:role/amplify-pipboy-dev-204709-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::720470672591:role/amplify-pipboy-dev-204709-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pipboy-dev-204709-deployment",
+      "UnauthRoleName": "amplify-pipboy-dev-204709-unauthRole",
+      "StackName": "amplify-pipboy-dev-204709",
+      "StackId": "arn:aws:cloudformation:us-east-1:720470672591:stack/amplify-pipboy-dev-204709/e9eb7f60-814a-11eb-9d46-12afb4d5f445",
+      "AmplifyAppId": "d3kavkufer9pu0"
+    },
+    "categories": {
+      "auth": {
+        "pipboye4ffd66d": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+type User @model {
+  id: ID!
+  name: String!
+  missions: [UserMission] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type UserMission
+  @model
+  @key(name: "byUser", fields: ["userID", "missionID"])
+  @key(name: "byMission", fields: ["missionID", "userID"]) {
+  id: ID!
+  userID: ID!
+  missionID: ID!
+  user: User! @connection(fields: ["userID"])
+  mission: Mission! @connection(fields: ["missionID"])
+  status: String
+}
+
+type Mission @model {
+  id: ID!
+  title: String!
+  link: String!
+  type: String!
+  users: [UserMission] @connection(keyName: "byMission", fields: ["id"])
+}
