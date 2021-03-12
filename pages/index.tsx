@@ -1,23 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Grid,
-  GridItem,
-  SimpleGrid,
-  Button,
-  Center,
-  Avatar,
-  Flex,
-  Spacer,
-  Text,
-  Stack,
-} from '@chakra-ui/react';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { Amplify, API, Auth, withSSRContext } from 'aws-amplify';
+import { withSSRContext } from 'aws-amplify';
 
-import awsExports from '../src/aws-exports';
 import MissionCard from 'components/MissionCard';
-import useCreateMission from 'utils/hooks/api/useCreateMission';
 import Header from 'components/Header';
 
 const listMissions = /* GraphQL */ `
@@ -51,12 +37,6 @@ export async function getServerSideProps({ req }) {
     },
   };
 }
-
-const logout = () => {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('profile');
-  }
-};
 
 const profiles = [
   {

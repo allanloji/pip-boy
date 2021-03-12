@@ -129,7 +129,7 @@ interface MissionCardProps {
   users: any[];
 }
 
-function MissionCard({ id, title, link, type, user, status, users }: MissionCardProps) {
+function MissionCard({ id, title, link, type, user, status, users = [] }: MissionCardProps) {
   const { mutate } = useAddMission();
   const { mutate: update } = useUpdateUserMission();
   const toast = useToast();
@@ -155,7 +155,9 @@ function MissionCard({ id, title, link, type, user, status, users }: MissionCard
         <Flex>
           {users.items?.map(friend => {
             const friendUser = profiles.find(profile => profile.id === friend.userID);
-            return <Avatar name={friendUser.name} src={friendUser.image} size='sm' />;
+            return (
+              <Avatar key={friendUser.id} name={friendUser.name} src={friendUser.image} size='sm' />
+            );
           })}
 
           <Spacer />

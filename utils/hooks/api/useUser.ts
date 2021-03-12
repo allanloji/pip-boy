@@ -41,10 +41,6 @@ const getUserFilter = /* GraphQL */ `
             type
             users {
               items {
-                user {
-                  id
-                  name
-                }
                 userID
               }
             }
@@ -63,12 +59,12 @@ const getUserQuery = ({ queryKey }): any => {
   if (status) {
     return API.graphql(graphqlOperation(getUserFilter, { id, status }));
   }
-  console.log('entra');
+
   return API.graphql(graphqlOperation(getUser, { id }));
 };
 
 function useUser(id: string, status?: string) {
-  return useQuery(['user', { id, status }], getUserQuery);
+  return useQuery(['user', { id, status }], getUserQuery, { enabled: id != null });
 }
 
 export default useUser;
