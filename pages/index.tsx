@@ -263,7 +263,7 @@ function Home({ missions = [] }) {
   return (
     <Box padding='1rem'>
       <Header profile={profile} />
-      <SimpleGrid columns={3} spacing={10}>
+      <SimpleGrid columns={[1, 2, 3]} spacing={10}>
         {missions.map(mission => (
           <MissionCard {...mission} key={mission.id} user={profile} />
         ))}

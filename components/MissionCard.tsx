@@ -135,6 +135,8 @@ function MissionCard({ id, title, link, type, user, status, users = [] }: Missio
   const toast = useToast();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const isTracked = users.items?.find((friend: any) => friend.userID === user?.id) !== undefined;
+
   return (
     <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
       <Box p='6'>
@@ -146,7 +148,14 @@ function MissionCard({ id, title, link, type, user, status, users = [] }: Missio
             </Badge> */}
         </Box>
 
-        <Box mt='1' fontWeight='semibold' as='h4' lineHeight='tight' isTruncated fontSize='30px'>
+        <Box
+          mt='1'
+          fontWeight='semibold'
+          as='h4'
+          lineHeight='tight'
+          isTruncated
+          fontSize={['20px', '30px']}
+        >
           <a href={link} target='_blank'>
             {title}
           </a>
@@ -166,88 +175,90 @@ function MissionCard({ id, title, link, type, user, status, users = [] }: Missio
           })}
 
           <Spacer />
-          <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <PopoverTrigger>
-              <IconButton
-                colorScheme='blue'
-                aria-label='Search database'
-                icon={<AddIcon />}
-                onClick={() => setIsOpen(true)}
-              />
-            </PopoverTrigger>
-            <Portal>
-              <PopoverContent>
-                <PopoverArrow />
-                <PopoverHeader>Add to</PopoverHeader>
-                <PopoverCloseButton />
-                <PopoverBody>
-                  <ButtonGroup variant='outline' spacing='6'>
-                    <Button
-                      colorScheme='green'
-                      size='xs'
-                      onClick={() => {
-                        if (status) {
-                          update({ id, status: 'Complete' });
-                        } else {
-                          mutate({ userID: user.id, missionID: id, status: 'Complete' });
-                        }
+          {(!isTracked || status) && (
+            <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
+              <PopoverTrigger>
+                <IconButton
+                  colorScheme='blue'
+                  aria-label='Search database'
+                  icon={<AddIcon />}
+                  onClick={() => setIsOpen(true)}
+                />
+              </PopoverTrigger>
+              <Portal>
+                <PopoverContent>
+                  <PopoverArrow />
+                  <PopoverHeader>Add to</PopoverHeader>
+                  <PopoverCloseButton />
+                  <PopoverBody>
+                    <ButtonGroup variant='outline' spacing='6'>
+                      <Button
+                        colorScheme='green'
+                        size='xs'
+                        onClick={() => {
+                          if (status) {
+                            update({ id, status: 'Complete' });
+                          } else {
+                            mutate({ userID: user.id, missionID: id, status: 'Complete' });
+                          }
 
-                        toast({
-                          title: 'Added to Complete',
-                          status: 'success',
-                          duration: 5000,
-                          isClosable: true,
-                        });
-                        setIsOpen(false);
-                      }}
-                    >
-                      Complete
-                    </Button>
-                    <Button
-                      colorScheme='yellow'
-                      size='xs'
-                      onClick={() => {
-                        if (status) {
-                          update({ id, status: 'In Progress' });
-                        } else {
-                          mutate({ userID: user.id, missionID: id, status: 'In Progress' });
-                        }
-                        toast({
-                          title: 'Added to In Progress',
-                          status: 'success',
-                          duration: 5000,
-                          isClosable: true,
-                        });
-                        setIsOpen(false);
-                      }}
-                    >
-                      In Progress
-                    </Button>
-                    <Button
-                      colorScheme='red'
-                      size='xs'
-                      onClick={() => {
-                        if (status) {
-                          update({ id, status: 'Incomplete' });
-                        } else {
-                          mutate({ userID: user.id, missionID: id, status: 'Incomplete' });
-                        }
-                        toast({
-                          title: 'Added to Incomplete',
-                          status: 'success',
-                          duration: 5000,
-                          isClosable: true,
-                        });
-                        setIsOpen(false);
-                      }}
-                    >
-                      Incomplete
-                    </Button>
-                  </ButtonGroup>
-                </PopoverBody>
-              </PopoverContent>
-            </Portal>
-          </Popover>
+                          toast({
+                            title: 'Added to Complete',
+                            status: 'success',
+                            duration: 5000,
+                            isClosable: true,
+                          });
+                          setIsOpen(false);
+                        }}
+                      >
+                        Complete
+                      </Button>
+                      <Button
+                        colorScheme='yellow'
+                        size='xs'
+                        onClick={() => {
+                          if (status) {
+                            update({ id, status: 'In Progress' });
+                          } else {
+                            mutate({ userID: user.id, missionID: id, status: 'In Progress' });
+                          }
+                          toast({
+                            title: 'Added to In Progress',
+                            status: 'success',
+                            duration: 5000,
+                            isClosable: true,
+                          });
+                          setIsOpen(false);
+                        }}
+                      >
+                        In Progress
+                      </Button>
+                      <Button
+                        colorScheme='red'
+                        size='xs'
+                        onClick={() => {
+                          if (status) {
+                            update({ id, status: 'Incomplete' });
+                          } else {
+                            mutate({ userID: user.id, missionID: id, status: 'Incomplete' });
+                          }
+                          toast({
+                            title: 'Added to Incomplete',
+                            status: 'success',
+                            duration: 5000,
+                            isClosable: true,
+                          });
+                          setIsOpen(false);
+                        }}
+                      >
+                        Incomplete
+                      </Button>
+                    </ButtonGroup>
+                  </PopoverBody>
+                </PopoverContent>
+              </Portal>
+            </Popover>
+          )}
         </Flex>
       </Box>
     </Box>

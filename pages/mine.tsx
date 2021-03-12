@@ -66,7 +66,7 @@ function Mine() {
   return (
     <Box padding='1rem'>
       <Header profile={profile} />
-      <SimpleGrid columns={3} spacing={10}>
+      <SimpleGrid columns={[1, 2, 3]} spacing={10}>
         {isLoading && [1, 2, 3, 4, 5, 6].map(mission => <Skeleton key={mission} height='100px' />)}
         {!isLoading &&
           missions?.data.getUser.missions.items.map(mission => (

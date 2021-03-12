@@ -63,20 +63,20 @@ function Header({ profile }: any) {
           crear
         </Button> */}
       </Flex>
-      <Stack spacing={4} direction='row' align='center' mb='1rem'>
-        <Button colorScheme='blue' size='sm' onClick={() => router.push('/')}>
+      <Stack spacing={4} direction='row' align='center' mb='1rem' flexWrap='wrap'>
+        <Button colorScheme='blue' size='sm' onClick={() => router.push('/')} mb='1rem'>
           All
         </Button>
-        <Button colorScheme='teal' size='sm' onClick={() => router.push('/mine')}>
+        <Button colorScheme='teal' size='sm' onClick={() => router.push('/mine')} mb='1rem'>
           Mine
         </Button>
-        <Button colorScheme='green' size='sm' onClick={() => router.push('/complete')}>
+        <Button colorScheme='green' size='sm' onClick={() => router.push('/complete')} mb='1rem'>
           Complete
         </Button>
-        <Button colorScheme='yellow' size='sm' onClick={() => router.push('/inProgress')}>
+        <Button colorScheme='yellow' size='sm' onClick={() => router.push('/inProgress')} mb='1rem'>
           In Progress
         </Button>
-        <Button colorScheme='red' size='sm' onClick={() => router.push('/incomplete')}>
+        <Button colorScheme='red' size='sm' onClick={() => router.push('/incomplete')} mb='1rem'>
           Incomplete
         </Button>
       </Stack>

@@ -15,6 +15,11 @@ const getUser = /* GraphQL */ `
             link
             id
             type
+            users {
+              items {
+                userID
+              }
+            }
           }
         }
         nextToken

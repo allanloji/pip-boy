@@ -25,7 +25,7 @@ const profiles = [
 function Home() {
   return (
     <Center h='100vh' w='100vw'>
-      <Flex justify='space-between' w='60%'>
+      <Flex justify='space-between' w='60%' direction={['column', 'row']}>
         {profiles.map(profile => (
           <AvatarProfile {...profile} />
         ))}

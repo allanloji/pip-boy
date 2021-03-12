@@ -19,6 +19,7 @@ function AvatarProfile({ name, image }: AvatarProfileProps) {
     <Flex
       direction='column'
       textAlign='center'
+      alignItems='center'
       _hover={{
         cursor: 'pointer',
       }}
