@@ -2,8 +2,11 @@ import React from 'react';
 import Head from 'next/dist/next-server/lib/head';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { Amplify, API, Auth, withSSRContext } from 'aws-amplify';
+import awsExports from '../src/aws-exports';
 
 const queryClient = new QueryClient();
+Amplify.configure({ ...awsExports, ssr: true });
 
 const MyApp = ({ Component, pageProps }: any) => (
   <React.Fragment>

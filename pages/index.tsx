@@ -10,6 +10,7 @@ import {
   Flex,
   Spacer,
   Text,
+  Stack,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { Amplify, API, Auth, withSSRContext } from 'aws-amplify';
@@ -18,8 +19,8 @@ import { listMissions } from '../src/graphql/queries';
 import awsExports from '../src/aws-exports';
 import MissionCard from 'components/MissionCard';
 import useCreateMission from 'utils/hooks/api/useCreateMission';
-
-Amplify.configure({ ...awsExports, ssr: true });
+import Header from 'components/Header';
+import { profile } from 'console';
 
 export async function getServerSideProps({ req }) {
   const SSR = withSSRContext({ req });
@@ -262,38 +263,10 @@ function Home({ missions = [] }) {
 
   return (
     <Box padding='1rem'>
-      <Flex justify='space-between' mb='2rem'>
-        {profile && (
-          <Flex direction='column' textAlign='center'>
-            <Avatar name={profile.name} src={profile.image} size='xl' mb='1rem' />
-            <Text fontSize='2xl'>{profile.name}</Text>
-          </Flex>
-        )}
-        <Button
-          colorScheme='red'
-          float='right'
-          onClick={() => {
-            logout();
-            router.push('/login');
-          }}
-        >
-          Logout
-        </Button>
-
-        {/* <Button
-          colorScheme='red'
-          float='right'
-          onClick={() => {
-            
-          }}
-        >
-          crear
-        </Button> */}
-      </Flex>
-
+      <Header profile={profile} />
       <SimpleGrid columns={3} spacing={10}>
         {missions.map(mission => (
-          <MissionCard {...mission} key={mission.id} />
+          <MissionCard {...mission} key={mission.id} user={profile} />
         ))}
       </SimpleGrid>
     </Box>
