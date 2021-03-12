@@ -3,6 +3,13 @@ const path = require("path");
 require('dotenv').config();
 
 module.exports = {
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
   webpack(config) {
     config.resolve.alias["components"] = path.join(__dirname, "components");
     config.resolve.alias["pages"] = path.join(__dirname, "pages");

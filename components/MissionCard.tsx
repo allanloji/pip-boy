@@ -126,7 +126,7 @@ interface MissionCardProps {
     id: string;
   };
   status?: string;
-  users: any[];
+  users: any;
 }
 
 function MissionCard({ id, title, link, type, user, status, users = [] }: MissionCardProps) {
@@ -153,10 +153,15 @@ function MissionCard({ id, title, link, type, user, status, users = [] }: Missio
         </Box>
 
         <Flex>
-          {users.items?.map(friend => {
+          {users.items?.map((friend: any) => {
             const friendUser = profiles.find(profile => profile.id === friend.userID);
             return (
-              <Avatar key={friendUser.id} name={friendUser.name} src={friendUser.image} size='sm' />
+              <Avatar
+                key={friendUser?.id}
+                name={friendUser?.name}
+                src={friendUser?.image}
+                size='sm'
+              />
             );
           })}
 
