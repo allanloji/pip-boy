@@ -46,21 +46,21 @@ const getTag = (type: string) => {
   }
   if (type === 'Daily') {
     return (
-      <Badge borderRadius='full' px='2' colorScheme='blue'>
+      <Badge borderRadius='full' px='2' colorScheme='cyan'>
         {type}
       </Badge>
     );
   }
   if (type === 'Event') {
     return (
-      <Badge borderRadius='full' px='2' colorScheme='blue'>
+      <Badge borderRadius='full' px='2' colorScheme='orange'>
         {type}
       </Badge>
     );
   }
   if (type === 'Ally') {
     return (
-      <Badge borderRadius='full' px='2' colorScheme='blue'>
+      <Badge borderRadius='full' px='2' colorScheme='purple'>
         {type}
       </Badge>
     );

@@ -1,6 +1,7 @@
 import { Flex, Avatar, Button, Stack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import useCreateMission from 'utils/hooks/api/useCreateMission';
 
 const logout = () => {
   if (typeof window !== 'undefined') {
@@ -33,6 +34,7 @@ const profiles = [
 
 function Header({ profile }: any) {
   const router = useRouter();
+  // const { mutate } = useCreateMission();
   return (
     <>
       <Flex justify='space-between' mb='2rem'>
@@ -57,7 +59,8 @@ function Header({ profile }: any) {
           colorScheme='red'
           float='right'
           onClick={() => {
-            
+            missionsMock.forEach(mission => mutate({ ...mission }));
+            console.log('acabo');
           }}
         >
           crear

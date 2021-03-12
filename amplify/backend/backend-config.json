@@ -31,5 +31,11 @@
         }
       }
     }
+  },
+  "data": {
+    "DynamoDBDataImporter": {
+      "providerPlugin": "awscloudformation",
+      "service": "S3AndLambda"
+    }
   }
 }
