@@ -78,6 +78,7 @@ function Incomplete() {
               key={mission.id}
               user={profile}
               status={mission.status}
+              users={mission.mission.users}
             />
           ))}
       </SimpleGrid>

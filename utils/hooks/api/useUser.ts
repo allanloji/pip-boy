@@ -39,6 +39,15 @@ const getUserFilter = /* GraphQL */ `
             link
             id
             type
+            users {
+              items {
+                user {
+                  id
+                  name
+                }
+                userID
+              }
+            }
           }
         }
         nextToken

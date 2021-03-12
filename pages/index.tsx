@@ -14,13 +14,32 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { Amplify, API, Auth, withSSRContext } from 'aws-amplify';
-import { listMissions } from '../src/graphql/queries';
 
 import awsExports from '../src/aws-exports';
 import MissionCard from 'components/MissionCard';
 import useCreateMission from 'utils/hooks/api/useCreateMission';
 import Header from 'components/Header';
-import { profile } from 'console';
+
+const listMissions = /* GraphQL */ `
+  query ListMissions($filter: ModelMissionFilterInput, $limit: Int, $nextToken: String) {
+    listMissions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        link
+        type
+        users {
+          items {
+            userID
+          }
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 
 export async function getServerSideProps({ req }) {
   const SSR = withSSRContext({ req });
