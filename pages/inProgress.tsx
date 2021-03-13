@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, SimpleGrid, Skeleton } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 
 import Header from 'components/Header';
 import MissionCard from 'components/MissionCard';

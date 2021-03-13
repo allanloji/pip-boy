@@ -73,6 +73,24 @@ function MissionCard({ id, title, link, type, user, status, users }: MissionCard
 
   const isTracked = users?.items?.find(friend => friend?.userID === user?.id) !== undefined;
 
+  const changeStatus = (newStatus: string) => {
+    if (status) {
+      // @ts-ignore
+      update({ id, status: newStatus });
+    } else {
+      // @ts-ignore
+      mutate({ userID: user.id, missionID: id, status: newStatus });
+    }
+
+    toast({
+      title: `Added to ${newStatus}`,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
+    setIsOpen(false);
+  };
+
   return (
     <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
       <Box p='6'>
@@ -128,67 +146,21 @@ function MissionCard({ id, title, link, type, user, status, users }: MissionCard
                       <Button
                         colorScheme='green'
                         size='xs'
-                        onClick={() => {
-                          if (status) {
-                            // @ts-ignore
-                            update({ id, status: 'Complete' });
-                          } else {
-                            // @ts-ignore
-                            mutate({ userID: user.id, missionID: id, status: 'Complete' });
-                          }
-
-                          toast({
-                            title: 'Added to Complete',
-                            status: 'success',
-                            duration: 5000,
-                            isClosable: true,
-                          });
-                          setIsOpen(false);
-                        }}
+                        onClick={() => changeStatus('Complete')}
                       >
                         Complete
                       </Button>
                       <Button
                         colorScheme='yellow'
                         size='xs'
-                        onClick={() => {
-                          if (status) {
-                            // @ts-ignore
-                            update({ id, status: 'In Progress' });
-                          } else {
-                            // @ts-ignore
-                            mutate({ userID: user.id, missionID: id, status: 'In Progress' });
-                          }
-                          toast({
-                            title: 'Added to In Progress',
-                            status: 'success',
-                            duration: 5000,
-                            isClosable: true,
-                          });
-                          setIsOpen(false);
-                        }}
+                        onClick={() => changeStatus('In Progress')}
                       >
                         In Progress
                       </Button>
                       <Button
                         colorScheme='red'
                         size='xs'
-                        onClick={() => {
-                          if (status) {
-                            // @ts-ignore
-                            update({ id, status: 'Incomplete' });
-                          } else {
-                            // @ts-ignore
-                            mutate({ userID: user.id, missionID: id, status: 'Incomplete' });
-                          }
-                          toast({
-                            title: 'Added to Incomplete',
-                            status: 'success',
-                            duration: 5000,
-                            isClosable: true,
-                          });
-                          setIsOpen(false);
-                        }}
+                        onClick={() => changeStatus('Incomplete')}
                       >
                         Incomplete
                       </Button>
