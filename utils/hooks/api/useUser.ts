@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import { API, graphqlOperation } from 'aws-amplify';
+import { User } from 'src/API';
 
 const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
@@ -59,7 +60,12 @@ const getUserFilter = /* GraphQL */ `
   }
 `;
 
-const getUserQuery = ({ queryKey }): any => {
+type QueryKey = [string, { id: string; status: string }];
+
+type QueryParams = {
+  queryKey: QueryKey;
+};
+const getUserQuery = ({ queryKey }: QueryParams) => {
   const [_key, { id, status }] = queryKey;
   if (status) {
     return API.graphql(graphqlOperation(getUserFilter, { id, status }));
@@ -68,7 +74,8 @@ const getUserQuery = ({ queryKey }): any => {
   return API.graphql(graphqlOperation(getUser, { id }));
 };
 
-function useUser(id: string, status?: string) {
+function useUser(id?: string, status?: string) {
+  // @ts-ignore
   return useQuery(['user', { id, status }], getUserQuery, { enabled: id != null });
 }
 

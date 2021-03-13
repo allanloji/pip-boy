@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import {
   Button,
-  Grid,
-  GridItem,
-  SimpleGrid,
   Flex,
   Box,
-  Image,
   IconButton,
   Badge,
-  Wrap,
-  WrapItem,
   Avatar,
   Spacer,
   Popover,
@@ -20,76 +14,49 @@ import {
   PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
-  PopoverFooter,
   PopoverHeader,
   ButtonGroup,
   useToast,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+
+import { Friend, User } from 'src/types';
 import useAddMission from 'utils/hooks/api/useAddMission';
 import useUpdateUserMission from 'utils/hooks/api/useUpdateUserMission';
+import { Mission } from 'src/API';
+
+const tagColors: { [key: string]: string } = {
+  Main: 'teal',
+  Side: 'blue',
+  Daily: 'cyan',
+  Event: 'orange',
+  Ally: 'purple',
+};
 
 const getTag = (type: string) => {
-  if (type === 'Main') {
-    return (
-      <Badge borderRadius='full' px='2' colorScheme='teal'>
-        {type}
-      </Badge>
-    );
-  }
-  if (type === 'Side') {
-    return (
-      <Badge borderRadius='full' px='2' colorScheme='blue'>
-        {type}
-      </Badge>
-    );
-  }
-  if (type === 'Daily') {
-    return (
-      <Badge borderRadius='full' px='2' colorScheme='cyan'>
-        {type}
-      </Badge>
-    );
-  }
-  if (type === 'Event') {
-    return (
-      <Badge borderRadius='full' px='2' colorScheme='orange'>
-        {type}
-      </Badge>
-    );
-  }
-  if (type === 'Ally') {
-    return (
-      <Badge borderRadius='full' px='2' colorScheme='purple'>
-        {type}
-      </Badge>
-    );
-  }
+  const tagColor = tagColors[type];
+
+  return (
+    <Badge borderRadius='full' px='2' colorScheme={tagColor}>
+      {type}
+    </Badge>
+  );
+};
+
+const statusColors: { [key: string]: string } = {
+  Complete: 'green',
+  InProgress: 'yellow',
+  Incomplete: 'red',
 };
 
 const getStatus = (status: string) => {
-  if (status === 'Complete') {
-    return (
-      <Badge borderRadius='full' px='2' colorScheme='green'>
-        {status}
-      </Badge>
-    );
-  }
+  const statusColor = statusColors[status.replace(/\s/g, '')];
 
-  if (status === 'In Progress') {
-    return (
-      <Badge borderRadius='full' px='2' colorScheme='yellow'>
-        {status}
-      </Badge>
-    );
-  }
-  if (status === 'Incomplete') {
-    return (
-      <Badge borderRadius='full' px='2' colorScheme='red'>
-        {status}
-      </Badge>
-    );
-  }
+  return (
+    <Badge borderRadius='full' px='2' colorScheme={statusColor}>
+      {status}
+    </Badge>
+  );
 };
 
 const profiles = [
@@ -115,37 +82,25 @@ const profiles = [
   },
 ];
 
-interface MissionCardProps {
-  id: string;
-  title: string;
-  link: string;
-  type: string;
-  user: {
-    name: string;
-    image: string;
-    id: string;
-  };
-  status?: string;
-  users: any;
+interface MissionCardProps extends Omit<Mission, '__typename'> {
+  user?: User;
+  status?: string | null;
 }
 
-function MissionCard({ id, title, link, type, user, status, users = [] }: MissionCardProps) {
+function MissionCard({ id, title, link, type, user, status, users }: MissionCardProps) {
   const { mutate } = useAddMission();
   const { mutate: update } = useUpdateUserMission();
   const toast = useToast();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const isTracked = users.items?.find((friend: any) => friend.userID === user?.id) !== undefined;
+  const isTracked = users?.items?.find(friend => friend?.userID === user?.id) !== undefined;
 
   return (
     <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
       <Box p='6'>
         <Box d='flex' alignItems='baseline'>
-          {getTag(type)}
+          {type && getTag(type)}
           {status && getStatus(status)}
-          {/* <Badge borderRadius='full' px='2' colorScheme='red'>
-              Incomplete
-            </Badge> */}
         </Box>
 
         <Box
@@ -162,8 +117,8 @@ function MissionCard({ id, title, link, type, user, status, users = [] }: Missio
         </Box>
 
         <Flex>
-          {users.items?.map((friend: any) => {
-            const friendUser = profiles.find(profile => profile.id === friend.userID);
+          {users?.items?.map(friend => {
+            const friendUser = profiles.find(profile => profile.id === friend?.userID);
             return (
               <Avatar
                 key={friendUser?.id}
@@ -197,8 +152,10 @@ function MissionCard({ id, title, link, type, user, status, users = [] }: Missio
                         size='xs'
                         onClick={() => {
                           if (status) {
+                            // @ts-ignore
                             update({ id, status: 'Complete' });
                           } else {
+                            // @ts-ignore
                             mutate({ userID: user.id, missionID: id, status: 'Complete' });
                           }
 
@@ -218,8 +175,10 @@ function MissionCard({ id, title, link, type, user, status, users = [] }: Missio
                         size='xs'
                         onClick={() => {
                           if (status) {
+                            // @ts-ignore
                             update({ id, status: 'In Progress' });
                           } else {
+                            // @ts-ignore
                             mutate({ userID: user.id, missionID: id, status: 'In Progress' });
                           }
                           toast({
@@ -238,8 +197,10 @@ function MissionCard({ id, title, link, type, user, status, users = [] }: Missio
                         size='xs'
                         onClick={() => {
                           if (status) {
+                            // @ts-ignore
                             update({ id, status: 'Incomplete' });
                           } else {
+                            // @ts-ignore
                             mutate({ userID: user.id, missionID: id, status: 'Incomplete' });
                           }
                           toast({

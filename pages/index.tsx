@@ -5,6 +5,7 @@ import { withSSRContext } from 'aws-amplify';
 
 import MissionCard from 'components/MissionCard';
 import Header from 'components/Header';
+import { Mission } from 'src/API';
 
 const listMissions = /* GraphQL */ `
   query ListMissions($filter: ModelMissionFilterInput, $limit: Int, $nextToken: String) {
@@ -27,7 +28,7 @@ const listMissions = /* GraphQL */ `
   }
 `;
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req }: any) {
   const SSR = withSSRContext({ req });
   const response = await SSR.API.graphql({ query: listMissions });
 
@@ -61,7 +62,11 @@ const profiles = [
   },
 ];
 
-function Home({ missions = [] }) {
+interface HomeProps {
+  missions: Mission[];
+}
+
+function Home({ missions = [] }: HomeProps) {
   const router = useRouter();
   const [profile, setProfile] = useState<any>(null);
   // const { mutate } = useCreateMission();

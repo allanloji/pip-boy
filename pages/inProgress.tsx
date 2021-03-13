@@ -1,29 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Grid,
-  GridItem,
-  SimpleGrid,
-  Button,
-  Center,
-  Avatar,
-  Flex,
-  Spacer,
-  Text,
-  Stack,
-  Skeleton,
-} from '@chakra-ui/react';
+import { Box, SimpleGrid, Skeleton } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
+import Header from 'components/Header';
 import MissionCard from 'components/MissionCard';
 import useUser from 'utils/hooks/api/useUser';
-import Header from 'components/Header';
-
-const logout = () => {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('profile');
-  }
-};
+import { UserMission } from 'src/API';
+import { User } from 'src/types';
 
 const profiles = [
   {
@@ -50,7 +33,7 @@ const profiles = [
 
 function InProgress() {
   const router = useRouter();
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<User | undefined>(undefined);
   const { data: missions, isLoading } = useUser(profile?.id, 'In Progress');
 
   useEffect(() => {
@@ -69,16 +52,17 @@ function InProgress() {
       <SimpleGrid columns={[1, 2, 3]} spacing={10}>
         {isLoading && [1, 2, 3, 4, 5, 6].map(mission => <Skeleton key={mission} height='100px' />)}
         {!isLoading &&
-          missions?.data.getUser.missions.items.map(mission => (
+          // @ts-ignore
+          missions?.data.getUser.missions.items.map((mission: UserMission) => (
             <MissionCard
               id={mission.id}
-              title={mission.mission.title}
-              link={mission.mission.link}
-              type={mission.mission.type}
+              title={mission.mission?.title}
+              link={mission.mission?.link}
+              type={mission.mission?.type}
               key={mission.id}
               user={profile}
               status={mission.status}
-              users={mission.mission.users}
+              users={mission.mission?.users}
             />
           ))}
       </SimpleGrid>
