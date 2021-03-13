@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, SimpleGrid } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import { withSSRContext } from 'aws-amplify';
 
 import MissionCard from 'components/MissionCard';
 import Header from 'components/Header';
 import { Mission } from 'src/API';
+import useSession from 'utils/hooks/useSession';
 
 const listMissions = /* GraphQL */ `
   query ListMissions($filter: ModelMissionFilterInput, $limit: Int, $nextToken: String) {
@@ -39,47 +39,13 @@ export async function getServerSideProps({ req }: any) {
   };
 }
 
-const profiles = [
-  {
-    name: 'Allanciano',
-    image: '/assets/Allan.png',
-    id: '05c2bb9a-4b4a-4665-a4e4-41536a902be9',
-  },
-  {
-    name: 'Cedapai',
-    image: '/assets/Cesar.png',
-    id: 'c65afc41-959b-41c6-8b07-75b6254996a6',
-  },
-  {
-    name: 'Lalo001',
-    image: '/assets/Lalo.png',
-    id: 'aa3985f1-0103-421e-a0b2-c38071dffae0',
-  },
-  {
-    name: 'Pacurrio',
-    image: '/assets/Paco.png',
-    id: '6975d5c6-b9f2-4a61-8308-a5fab15435d3',
-  },
-];
-
 interface HomeProps {
   missions: Mission[];
 }
 
 function Home({ missions = [] }: HomeProps) {
-  const router = useRouter();
-  const [profile, setProfile] = useState<any>(null);
+  const profile = useSession();
   // const { mutate } = useCreateMission();
-
-  useEffect(() => {
-    const user = typeof window !== 'undefined' && localStorage.getItem('profile');
-    if (!user) {
-      router.push('/login');
-    } else {
-      const currentUser = profiles.find(profile => profile.name === user);
-      setProfile(currentUser);
-    }
-  }, []);
 
   return (
     <Box padding='1rem'>

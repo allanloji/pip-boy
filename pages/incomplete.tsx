@@ -1,50 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, SimpleGrid, Skeleton } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 
 import Header from 'components/Header';
 import MissionCard from 'components/MissionCard';
-import useUser from 'utils/hooks/api/useUser';
-import { User } from 'src/types';
 import { UserMission } from 'src/API';
-
-const profiles = [
-  {
-    name: 'Allanciano',
-    image: '/assets/Allan.png',
-    id: '05c2bb9a-4b4a-4665-a4e4-41536a902be9',
-  },
-  {
-    name: 'Cedapai',
-    image: '/assets/Cesar.png',
-    id: 'c65afc41-959b-41c6-8b07-75b6254996a6',
-  },
-  {
-    name: 'Lalo001',
-    image: '/assets/Lalo.png',
-    id: 'aa3985f1-0103-421e-a0b2-c38071dffae0',
-  },
-  {
-    name: 'Pacurrio',
-    image: '/assets/Paco.png',
-    id: '6975d5c6-b9f2-4a61-8308-a5fab15435d3',
-  },
-];
+import useUser from 'utils/hooks/api/useUser';
+import useSession from 'utils/hooks/useSession';
 
 function Incomplete() {
-  const router = useRouter();
-  const [profile, setProfile] = useState<User | undefined>(undefined);
+  const profile = useSession();
   const { data: missions, isLoading } = useUser(profile?.id, 'Incomplete');
-
-  useEffect(() => {
-    const user = typeof window !== 'undefined' && localStorage.getItem('profile');
-    if (!user) {
-      router.push('/login');
-    } else {
-      const currentUser = profiles.find(profile => profile.name === user);
-      setProfile(currentUser);
-    }
-  }, []);
 
   return (
     <Box padding='1rem'>
