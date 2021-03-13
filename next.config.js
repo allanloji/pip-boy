@@ -1,8 +1,10 @@
 const webpack = require('webpack');
+const withPWA =require('next-pwa');
+
 const path = require("path");
 require('dotenv').config();
 
-module.exports = {
+module.exports = withPWA({
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
@@ -22,4 +24,7 @@ module.exports = {
     config.plugins.push(new webpack.DefinePlugin(env));
     return config;
   },
-};
+  pwa: {
+    dest: 'public'
+  }
+});

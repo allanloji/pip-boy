@@ -1,16 +1,8 @@
 import React from 'react';
-import Head from 'next/dist/next-server/lib/head';
-import { ChakraProvider } from '@chakra-ui/react';
-import { QueryClientProvider, QueryClient } from 'react-query';
-import { Amplify } from 'aws-amplify';
-import setupEnv from 'utils/setupEnv';
+import Head from 'next/head';
 
-const config = setupEnv();
-const queryClient = new QueryClient();
-Amplify.configure({ ...config, ssr: true });
-
-const MyApp = ({ Component, pageProps }: any) => (
-  <React.Fragment>
+const Nav = () => (
+  <nav>
     <Head>
       <meta charset='utf-8' />
       <meta http-equiv='X-UA-Compatible' content='IE=edge' />
@@ -28,19 +20,7 @@ const MyApp = ({ Component, pageProps }: any) => (
       <link rel='apple-touch-icon' href='/apple-icon.png'></link>
       <meta name='theme-color' content='#317EFB' />
     </Head>
-    <style jsx global>
-      {`
-        body {
-          margin: 0;
-        }
-      `}
-    </style>
-    <ChakraProvider>
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-      </QueryClientProvider>
-    </ChakraProvider>
-  </React.Fragment>
+  </nav>
 );
 
-export default MyApp;
+export default Nav;
