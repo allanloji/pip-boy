@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import { API, graphqlOperation } from 'aws-amplify';
+import { ModelMissionFilterInput } from 'src/API';
 
 const listMissions = /* GraphQL */ `
   query ListMissions($filter: ModelMissionFilterInput, $limit: Int, $nextToken: String) {
@@ -22,10 +23,27 @@ const listMissions = /* GraphQL */ `
   }
 `;
 
-const getMissions = (): any => API.graphql(graphqlOperation(listMissions));
+type QueryKey = [string, { filter?: ModelMissionFilterInput }];
 
-function useMissions() {
-  return useQuery('missions', getMissions);
+type QueryParams = {
+  queryKey: QueryKey;
+};
+
+const getMissions = ({ queryKey }: QueryParams) => {
+  const [_key, { filter }] = queryKey;
+  if (filter && Object.keys(filter).length > 0) {
+    return API.graphql(graphqlOperation(listMissions, { filter }));
+  }
+  return API.graphql(graphqlOperation(listMissions));
+};
+
+interface UseMissionsParams {
+  filter?: ModelMissionFilterInput;
+}
+
+function useMissions({ filter }: UseMissionsParams) {
+  // @ts-ignore
+  return useQuery(['missions', { filter }], getMissions);
 }
 
 export default useMissions;
