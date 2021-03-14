@@ -19,6 +19,7 @@ const getUser = /* GraphQL */ `
             users {
               items {
                 userID
+                status
               }
             }
           }
@@ -48,6 +49,7 @@ const getUserFilter = /* GraphQL */ `
             users {
               items {
                 userID
+                status
               }
             }
           }
