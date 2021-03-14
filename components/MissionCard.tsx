@@ -128,12 +128,19 @@ function MissionCard({ id, title, link, type, user, status, users }: MissionCard
           {users?.items?.map(friend => {
             const friendUser = profiles.find(profile => profile.id === friend?.userID);
             return (
-              <Avatar
-                key={friendUser?.id}
-                name={friendUser?.name}
-                src={friendUser?.image}
-                size='sm'
-              />
+              <Popover key={friendUser?.id}>
+                <PopoverTrigger>
+                  <Avatar name={friendUser?.name} src={friendUser?.image} size='sm' />
+                </PopoverTrigger>
+                {friend?.status && (
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverHeader>{friendUser?.name}</PopoverHeader>
+                    <PopoverBody>{getStatus(friend.status)}</PopoverBody>
+                  </PopoverContent>
+                )}
+              </Popover>
             );
           })}
 

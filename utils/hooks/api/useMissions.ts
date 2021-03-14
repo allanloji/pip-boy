@@ -13,6 +13,7 @@ const listMissions = /* GraphQL */ `
         users {
           items {
             userID
+            status
           }
         }
         createdAt
