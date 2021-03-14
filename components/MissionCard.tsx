@@ -19,6 +19,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+import { useQueryClient } from 'react-query';
 
 import { User } from 'src/types';
 import useAddMission from 'utils/hooks/api/useAddMission';
@@ -66,8 +67,19 @@ interface MissionCardProps extends Omit<Mission, '__typename'> {
 }
 
 function MissionCard({ id, title, link, type, user, status, users }: MissionCardProps) {
-  const { mutate } = useAddMission();
-  const { mutate: update } = useUpdateUserMission();
+  const queryClient = useQueryClient();
+  const mutateConfig = {
+    onSettled: () => {
+      queryClient.invalidateQueries('missions');
+    },
+  };
+  const { mutate } = useAddMission(mutateConfig);
+  const updateConfig = {
+    onSettled: () => {
+      queryClient.invalidateQueries('user');
+    },
+  };
+  const { mutate: update } = useUpdateUserMission(updateConfig);
   const toast = useToast();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 

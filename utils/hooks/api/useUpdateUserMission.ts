@@ -7,9 +7,13 @@ import { UpdateUserMissionInput } from 'src/API';
 const updateUserMissionMutation = (missionInput: UpdateUserMissionInput) =>
   API.graphql(graphqlOperation(updateUserMission, { input: missionInput }));
 
-function useUpdateUserMission() {
+type Config = {
+  onSettled?: () => void;
+};
+
+function useUpdateUserMission(config?: Config) {
   // @ts-ignore
-  return useMutation(updateUserMissionMutation);
+  return useMutation(updateUserMissionMutation, { ...config });
 }
 
 export default useUpdateUserMission;
