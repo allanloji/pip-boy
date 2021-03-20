@@ -33,7 +33,7 @@ const getUser = /* GraphQL */ `
 `;
 
 const getUserFilter = /* GraphQL */ `
-  query GetUser($id: ID!, $status: String) {
+  query GetUser($id: ID!, $status: MissionStatus) {
     getUser(id: $id) {
       id
       name
