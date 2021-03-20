@@ -48,7 +48,7 @@ function Home() {
         <Select
           placeholder='All'
           onChange={e =>
-            setFilterParams(prevState => {
+            setFilterParams((prevState: any) => {
               const value = e.target.value;
 
               if (value === '') {
@@ -60,11 +60,11 @@ function Home() {
           }
           width='200px'
         >
-          <option value='Main'>Main</option>
-          <option value='Side'>Side</option>
-          <option value='Ally'>Ally</option>
-          <option value='Daily'>Daily</option>
-          <option value='Event'>Event</option>
+          <option value='MAIN'>Main</option>
+          <option value='SIDE'>Side</option>
+          <option value='ALLY'>Ally</option>
+          <option value='DAILY'>Daily</option>
+          <option value='EVENT'>Event</option>
         </Select>
       </Flex>
 

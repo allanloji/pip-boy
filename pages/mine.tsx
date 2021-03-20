@@ -25,9 +25,9 @@ function Mine() {
           }}
           width='200px'
         >
-          <option value='Complete'>Complete</option>
-          <option value='In Progress'>In Progress</option>
-          <option value='Incomplete'>Incomplete</option>
+          <option value='COMPLETE'>Complete</option>
+          <option value='IN_PROGRESS'>In Progress</option>
+          <option value='INCOMPLETE'>Incomplete</option>
         </Select>
       </Flex>
       <SimpleGrid columns={[1, 2, 3]} spacing={10}>

@@ -76,7 +76,7 @@ export type UserMission = {
   missionID?: string,
   user?: User,
   mission?: Mission,
-  status?: string | null,
+  status?: MissionStatus | null,
   createdAt?: string,
   updatedAt?: string,
 };
@@ -86,11 +86,27 @@ export type Mission = {
   id?: string,
   title?: string,
   link?: string,
-  type?: string,
+  type?: MissionType,
   users?: ModelUserMissionConnection,
   createdAt?: string,
   updatedAt?: string,
 };
+
+export enum MissionType {
+  MAIN = "MAIN",
+  SIDE = "SIDE",
+  ALLY = "ALLY",
+  DAILY = "DAILY",
+  EVENT = "EVENT",
+}
+
+
+export enum MissionStatus {
+  COMPLETE = "COMPLETE",
+  IN_PROGRESS = "IN_PROGRESS",
+  INCOMPLETE = "INCOMPLETE",
+}
+
 
 export type UpdateUserInput = {
   id: string,
@@ -105,13 +121,13 @@ export type CreateUserMissionInput = {
   id?: string | null,
   userID: string,
   missionID: string,
-  status?: string | null,
+  status?: MissionStatus | null,
 };
 
 export type ModelUserMissionConditionInput = {
   userID?: ModelIDInput | null,
   missionID?: ModelIDInput | null,
-  status?: ModelStringInput | null,
+  status?: ModelMissionStatusInput | null,
   and?: Array< ModelUserMissionConditionInput | null > | null,
   or?: Array< ModelUserMissionConditionInput | null > | null,
   not?: ModelUserMissionConditionInput | null,
@@ -133,11 +149,16 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type ModelMissionStatusInput = {
+  eq?: MissionStatus | null,
+  ne?: MissionStatus | null,
+};
+
 export type UpdateUserMissionInput = {
   id: string,
   userID?: string | null,
   missionID?: string | null,
-  status?: string | null,
+  status?: MissionStatus | null,
 };
 
 export type DeleteUserMissionInput = {
@@ -148,23 +169,28 @@ export type CreateMissionInput = {
   id?: string | null,
   title: string,
   link: string,
-  type: string,
+  type: MissionType,
 };
 
 export type ModelMissionConditionInput = {
   title?: ModelStringInput | null,
   link?: ModelStringInput | null,
-  type?: ModelStringInput | null,
+  type?: ModelMissionTypeInput | null,
   and?: Array< ModelMissionConditionInput | null > | null,
   or?: Array< ModelMissionConditionInput | null > | null,
   not?: ModelMissionConditionInput | null,
+};
+
+export type ModelMissionTypeInput = {
+  eq?: MissionType | null,
+  ne?: MissionType | null,
 };
 
 export type UpdateMissionInput = {
   id: string,
   title?: string | null,
   link?: string | null,
-  type?: string | null,
+  type?: MissionType | null,
 };
 
 export type DeleteMissionInput = {
@@ -189,7 +215,7 @@ export type ModelUserMissionFilterInput = {
   id?: ModelIDInput | null,
   userID?: ModelIDInput | null,
   missionID?: ModelIDInput | null,
-  status?: ModelStringInput | null,
+  status?: ModelMissionStatusInput | null,
   and?: Array< ModelUserMissionFilterInput | null > | null,
   or?: Array< ModelUserMissionFilterInput | null > | null,
   not?: ModelUserMissionFilterInput | null,
@@ -199,7 +225,7 @@ export type ModelMissionFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
   link?: ModelStringInput | null,
-  type?: ModelStringInput | null,
+  type?: ModelMissionTypeInput | null,
   and?: Array< ModelMissionFilterInput | null > | null,
   or?: Array< ModelMissionFilterInput | null > | null,
   not?: ModelMissionFilterInput | null,
@@ -228,7 +254,7 @@ export type CreateUserMutation = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -256,7 +282,7 @@ export type UpdateUserMutation = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -284,7 +310,7 @@ export type DeleteUserMutation = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -322,7 +348,7 @@ export type CreateUserMissionMutation = {
       id: string,
       title: string,
       link: string,
-      type: string,
+      type: MissionType,
       users?:  {
         __typename: "ModelUserMissionConnection",
         nextToken?: string | null,
@@ -330,7 +356,7 @@ export type CreateUserMissionMutation = {
       createdAt: string,
       updatedAt: string,
     },
-    status?: string | null,
+    status?: MissionStatus | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -363,7 +389,7 @@ export type UpdateUserMissionMutation = {
       id: string,
       title: string,
       link: string,
-      type: string,
+      type: MissionType,
       users?:  {
         __typename: "ModelUserMissionConnection",
         nextToken?: string | null,
@@ -371,7 +397,7 @@ export type UpdateUserMissionMutation = {
       createdAt: string,
       updatedAt: string,
     },
-    status?: string | null,
+    status?: MissionStatus | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -404,7 +430,7 @@ export type DeleteUserMissionMutation = {
       id: string,
       title: string,
       link: string,
-      type: string,
+      type: MissionType,
       users?:  {
         __typename: "ModelUserMissionConnection",
         nextToken?: string | null,
@@ -412,7 +438,7 @@ export type DeleteUserMissionMutation = {
       createdAt: string,
       updatedAt: string,
     },
-    status?: string | null,
+    status?: MissionStatus | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -429,7 +455,7 @@ export type CreateMissionMutation = {
     id: string,
     title: string,
     link: string,
-    type: string,
+    type: MissionType,
     users?:  {
       __typename: "ModelUserMissionConnection",
       items?:  Array< {
@@ -437,7 +463,7 @@ export type CreateMissionMutation = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -459,7 +485,7 @@ export type UpdateMissionMutation = {
     id: string,
     title: string,
     link: string,
-    type: string,
+    type: MissionType,
     users?:  {
       __typename: "ModelUserMissionConnection",
       items?:  Array< {
@@ -467,7 +493,7 @@ export type UpdateMissionMutation = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -489,7 +515,7 @@ export type DeleteMissionMutation = {
     id: string,
     title: string,
     link: string,
-    type: string,
+    type: MissionType,
     users?:  {
       __typename: "ModelUserMissionConnection",
       items?:  Array< {
@@ -497,7 +523,7 @@ export type DeleteMissionMutation = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -524,7 +550,7 @@ export type GetUserQuery = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -585,7 +611,7 @@ export type GetUserMissionQuery = {
       id: string,
       title: string,
       link: string,
-      type: string,
+      type: MissionType,
       users?:  {
         __typename: "ModelUserMissionConnection",
         nextToken?: string | null,
@@ -593,7 +619,7 @@ export type GetUserMissionQuery = {
       createdAt: string,
       updatedAt: string,
     },
-    status?: string | null,
+    status?: MissionStatus | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -625,11 +651,11 @@ export type ListUserMissionsQuery = {
         id: string,
         title: string,
         link: string,
-        type: string,
+        type: MissionType,
         createdAt: string,
         updatedAt: string,
       },
-      status?: string | null,
+      status?: MissionStatus | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -647,7 +673,7 @@ export type GetMissionQuery = {
     id: string,
     title: string,
     link: string,
-    type: string,
+    type: MissionType,
     users?:  {
       __typename: "ModelUserMissionConnection",
       items?:  Array< {
@@ -655,7 +681,7 @@ export type GetMissionQuery = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -680,7 +706,7 @@ export type ListMissionsQuery = {
       id: string,
       title: string,
       link: string,
-      type: string,
+      type: MissionType,
       users?:  {
         __typename: "ModelUserMissionConnection",
         nextToken?: string | null,
@@ -704,7 +730,7 @@ export type OnCreateUserSubscription = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -727,7 +753,7 @@ export type OnUpdateUserSubscription = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -750,7 +776,7 @@ export type OnDeleteUserSubscription = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -783,7 +809,7 @@ export type OnCreateUserMissionSubscription = {
       id: string,
       title: string,
       link: string,
-      type: string,
+      type: MissionType,
       users?:  {
         __typename: "ModelUserMissionConnection",
         nextToken?: string | null,
@@ -791,7 +817,7 @@ export type OnCreateUserMissionSubscription = {
       createdAt: string,
       updatedAt: string,
     },
-    status?: string | null,
+    status?: MissionStatus | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -819,7 +845,7 @@ export type OnUpdateUserMissionSubscription = {
       id: string,
       title: string,
       link: string,
-      type: string,
+      type: MissionType,
       users?:  {
         __typename: "ModelUserMissionConnection",
         nextToken?: string | null,
@@ -827,7 +853,7 @@ export type OnUpdateUserMissionSubscription = {
       createdAt: string,
       updatedAt: string,
     },
-    status?: string | null,
+    status?: MissionStatus | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -855,7 +881,7 @@ export type OnDeleteUserMissionSubscription = {
       id: string,
       title: string,
       link: string,
-      type: string,
+      type: MissionType,
       users?:  {
         __typename: "ModelUserMissionConnection",
         nextToken?: string | null,
@@ -863,7 +889,7 @@ export type OnDeleteUserMissionSubscription = {
       createdAt: string,
       updatedAt: string,
     },
-    status?: string | null,
+    status?: MissionStatus | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -875,7 +901,7 @@ export type OnCreateMissionSubscription = {
     id: string,
     title: string,
     link: string,
-    type: string,
+    type: MissionType,
     users?:  {
       __typename: "ModelUserMissionConnection",
       items?:  Array< {
@@ -883,7 +909,7 @@ export type OnCreateMissionSubscription = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -900,7 +926,7 @@ export type OnUpdateMissionSubscription = {
     id: string,
     title: string,
     link: string,
-    type: string,
+    type: MissionType,
     users?:  {
       __typename: "ModelUserMissionConnection",
       items?:  Array< {
@@ -908,7 +934,7 @@ export type OnUpdateMissionSubscription = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,
@@ -925,7 +951,7 @@ export type OnDeleteMissionSubscription = {
     id: string,
     title: string,
     link: string,
-    type: string,
+    type: MissionType,
     users?:  {
       __typename: "ModelUserMissionConnection",
       items?:  Array< {
@@ -933,7 +959,7 @@ export type OnDeleteMissionSubscription = {
         id: string,
         userID: string,
         missionID: string,
-        status?: string | null,
+        status?: MissionStatus | null,
         createdAt: string,
         updatedAt: string,
       } | null > | null,

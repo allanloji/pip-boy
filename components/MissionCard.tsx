@@ -28,11 +28,11 @@ import { Mission } from 'src/API';
 import { profiles } from 'utils/profiles';
 
 const tagColors: { [key: string]: string } = {
-  Main: 'teal',
-  Side: 'blue',
-  Daily: 'cyan',
-  Event: 'orange',
-  Ally: 'purple',
+  MAIN: 'teal',
+  SIDE: 'blue',
+  DAILY: 'cyan',
+  EVENT: 'orange',
+  ALLY: 'purple',
 };
 
 const getTag = (type: string) => {
@@ -46,17 +46,17 @@ const getTag = (type: string) => {
 };
 
 const statusColors: { [key: string]: string } = {
-  Complete: 'green',
-  InProgress: 'yellow',
-  Incomplete: 'red',
+  COMPLETE: 'green',
+  IN_PROGRESS: 'yellow',
+  INCOMPLETE: 'red',
 };
 
 const getStatus = (status: string) => {
-  const statusColor = statusColors[status.replace(/\s/g, '')];
+  const statusColor = statusColors[status.replace('', '')];
 
   return (
     <Badge borderRadius='full' px='2' colorScheme={statusColor}>
-      {status}
+      {status.replace('_', ' ')}
     </Badge>
   );
 };
@@ -165,21 +165,21 @@ function MissionCard({ id, title, link, type, user, status, users }: MissionCard
                       <Button
                         colorScheme='green'
                         size='xs'
-                        onClick={() => changeStatus('Complete')}
+                        onClick={() => changeStatus('COMPLETE')}
                       >
                         Complete
                       </Button>
                       <Button
                         colorScheme='yellow'
                         size='xs'
-                        onClick={() => changeStatus('In Progress')}
+                        onClick={() => changeStatus('IN_PROGRESS')}
                       >
                         In Progress
                       </Button>
                       <Button
                         colorScheme='red'
                         size='xs'
-                        onClick={() => changeStatus('Incomplete')}
+                        onClick={() => changeStatus('INCOMPLETE')}
                       >
                         Incomplete
                       </Button>
