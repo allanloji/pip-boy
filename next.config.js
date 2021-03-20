@@ -4,7 +4,7 @@ const withPWA =require('next-pwa');
 const path = require("path");
 require('dotenv').config();
 
-module.exports = withPWA({
+module.exports = {
   webpack(config) {
     config.resolve.alias["components"] = path.join(__dirname, "components");
     config.resolve.alias["pages"] = path.join(__dirname, "pages");
@@ -17,7 +17,7 @@ module.exports = withPWA({
     config.plugins.push(new webpack.DefinePlugin(env));
     return config;
   },
-  pwa: {
-    dest: 'public'
-  }
-});
+  // pwa: {
+  //   dest: 'public'
+  // }
+};

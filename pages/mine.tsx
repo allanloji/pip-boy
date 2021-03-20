@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, SimpleGrid, Skeleton } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Flex, Select, SimpleGrid, Skeleton } from '@chakra-ui/react';
 
 import MissionCard from 'components/MissionCard';
 import Header from 'components/Header';
@@ -9,11 +9,27 @@ import useSession from 'utils/hooks/useSession';
 
 function Mine() {
   const profile = useSession();
-  const { data: missions, isLoading } = useUser(profile?.id);
+
+  const [filterParams, setFilterParams] = useState<string>('');
+  const { data: missions, isLoading } = useUser(profile?.id, filterParams);
 
   return (
     <Box padding='1rem'>
       <Header profile={profile} />
+      <Flex mb='2rem'>
+        <Select
+          placeholder='All'
+          onChange={e => {
+            const value = e.target.value;
+            setFilterParams(value);
+          }}
+          width='200px'
+        >
+          <option value='Complete'>Complete</option>
+          <option value='In Progress'>In Progress</option>
+          <option value='Incomplete'>Incomplete</option>
+        </Select>
+      </Flex>
       <SimpleGrid columns={[1, 2, 3]} spacing={10}>
         {isLoading && [1, 2, 3, 4, 5, 6].map(mission => <Skeleton key={mission} height='100px' />)}
         {!isLoading &&
