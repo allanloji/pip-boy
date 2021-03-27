@@ -9,3 +9,5 @@ public
 assets
 next.config.js
 next-env.d.ts
+
+src/models

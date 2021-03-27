@@ -7,19 +7,26 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       id
       name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       missions {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -28,19 +35,26 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       id
       name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       missions {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -49,19 +63,26 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       id
       name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       missions {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -71,29 +92,41 @@ export const onCreateUserMission = /* GraphQL */ `
       id
       userID
       missionID
+      status
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       user {
         id
         name
-        missions {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
       }
       mission {
         id
+        image
         title
         link
         type
-        users {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        users {
+          nextToken
+          startedAt
+        }
       }
-      status
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -103,29 +136,41 @@ export const onUpdateUserMission = /* GraphQL */ `
       id
       userID
       missionID
+      status
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       user {
         id
         name
-        missions {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
       }
       mission {
         id
+        image
         title
         link
         type
-        users {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        users {
+          nextToken
+          startedAt
+        }
       }
-      status
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -135,29 +180,41 @@ export const onDeleteUserMission = /* GraphQL */ `
       id
       userID
       missionID
+      status
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       user {
         id
         name
-        missions {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
       }
       mission {
         id
+        image
         title
         link
         type
-        users {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        users {
+          nextToken
+          startedAt
+        }
       }
-      status
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -165,22 +222,30 @@ export const onCreateMission = /* GraphQL */ `
   subscription OnCreateMission {
     onCreateMission {
       id
+      image
       title
       link
       type
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       users {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -188,22 +253,30 @@ export const onUpdateMission = /* GraphQL */ `
   subscription OnUpdateMission {
     onUpdateMission {
       id
+      image
       title
       link
       type
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       users {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -211,22 +284,30 @@ export const onDeleteMission = /* GraphQL */ `
   subscription OnDeleteMission {
     onDeleteMission {
       id
+      image
       title
       link
       type
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       users {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;

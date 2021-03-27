@@ -10,19 +10,26 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       missions {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -34,19 +41,26 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       missions {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -58,19 +72,26 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       missions {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -83,29 +104,41 @@ export const createUserMission = /* GraphQL */ `
       id
       userID
       missionID
+      status
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       user {
         id
         name
-        missions {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
       }
       mission {
         id
+        image
         title
         link
         type
-        users {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        users {
+          nextToken
+          startedAt
+        }
       }
-      status
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -118,29 +151,41 @@ export const updateUserMission = /* GraphQL */ `
       id
       userID
       missionID
+      status
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       user {
         id
         name
-        missions {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
       }
       mission {
         id
+        image
         title
         link
         type
-        users {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        users {
+          nextToken
+          startedAt
+        }
       }
-      status
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -153,29 +198,41 @@ export const deleteUserMission = /* GraphQL */ `
       id
       userID
       missionID
+      status
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       user {
         id
         name
-        missions {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
       }
       mission {
         id
+        image
         title
         link
         type
-        users {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        users {
+          nextToken
+          startedAt
+        }
       }
-      status
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -186,22 +243,30 @@ export const createMission = /* GraphQL */ `
   ) {
     createMission(input: $input, condition: $condition) {
       id
+      image
       title
       link
       type
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       users {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -212,22 +277,30 @@ export const updateMission = /* GraphQL */ `
   ) {
     updateMission(input: $input, condition: $condition) {
       id
+      image
       title
       link
       type
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       users {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -238,22 +311,30 @@ export const deleteMission = /* GraphQL */ `
   ) {
     deleteMission(input: $input, condition: $condition) {
       id
+      image
       title
       link
       type
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       users {
         items {
           id
           userID
           missionID
           status
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
-      createdAt
-      updatedAt
     }
   }
 `;

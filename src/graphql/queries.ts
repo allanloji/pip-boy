@@ -2,27 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      name
-      missions {
-        items {
-          id
-          userID
-          missionID
-          status
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput
@@ -33,13 +12,77 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         name
-        missions {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      missions {
+        items {
+          id
+          userID
+          missionID
+          status
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const syncUsers = /* GraphQL */ `
+  query SyncUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -49,29 +92,41 @@ export const getUserMission = /* GraphQL */ `
       id
       userID
       missionID
+      status
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
       user {
         id
         name
-        missions {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        missions {
+          nextToken
+          startedAt
+        }
       }
       mission {
         id
+        image
         title
         link
         type
-        users {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        users {
+          nextToken
+          startedAt
+        }
       }
-      status
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -86,48 +141,86 @@ export const listUserMissions = /* GraphQL */ `
         id
         userID
         missionID
+        status
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
         user {
           id
           name
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         mission {
           id
+          image
           title
           link
           type
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
-        status
-        createdAt
-        updatedAt
       }
       nextToken
+      startedAt
     }
   }
 `;
-export const getMission = /* GraphQL */ `
-  query GetMission($id: ID!) {
-    getMission(id: $id) {
-      id
-      title
-      link
-      type
-      users {
-        items {
+export const syncUserMissions = /* GraphQL */ `
+  query SyncUserMissions(
+    $filter: ModelUserMissionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUserMissions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        userID
+        missionID
+        status
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        user {
           id
-          userID
-          missionID
-          status
+          name
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
-        nextToken
+        mission {
+          id
+          image
+          title
+          link
+          type
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
       }
-      createdAt
-      updatedAt
+      nextToken
+      startedAt
     }
   }
 `;
@@ -140,16 +233,87 @@ export const listMissions = /* GraphQL */ `
     listMissions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        image
         title
         link
         type
-        users {
-          nextToken
-        }
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
+        users {
+          nextToken
+          startedAt
+        }
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const getMission = /* GraphQL */ `
+  query GetMission($id: ID!) {
+    getMission(id: $id) {
+      id
+      image
+      title
+      link
+      type
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      users {
+        items {
+          id
+          userID
+          missionID
+          status
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const syncMissions = /* GraphQL */ `
+  query SyncMissions(
+    $filter: ModelMissionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncMissions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        image
+        title
+        link
+        type
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        users {
+          nextToken
+          startedAt
+        }
+      }
+      nextToken
+      startedAt
     }
   }
 `;

@@ -15,6 +15,7 @@ const getUser = /* GraphQL */ `
             title
             link
             id
+            image
             type
             users {
               items {
@@ -45,6 +46,7 @@ const getUserFilter = /* GraphQL */ `
             title
             link
             id
+            image
             type
             users {
               items {

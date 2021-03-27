@@ -1,4 +1,4 @@
-type User @model {
+type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   missions: [UserMission] @connection(keyName: "byUser", fields: ["id"])
@@ -6,6 +6,7 @@ type User @model {
 
 type UserMission
   @model
+  @auth(rules: [{ allow: public }])
   @key(name: "byUser", fields: ["userID", "missionID"])
   @key(name: "byMission", fields: ["missionID", "userID"]) {
   id: ID!
@@ -21,8 +22,9 @@ enum MissionStatus {
   IN_PROGRESS
   INCOMPLETE
 }
-type Mission @model {
+type Mission @model @auth(rules: [{ allow: public }]) {
   id: ID!
+  image: String
   title: String!
   link: String!
   type: MissionType!

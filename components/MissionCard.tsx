@@ -20,6 +20,7 @@ import {
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useQueryClient } from 'react-query';
+import styled from '@emotion/styled';
 
 import { User } from 'src/types';
 import useAddMission from 'utils/hooks/api/useAddMission';
@@ -61,12 +62,39 @@ const getStatus = (status: string) => {
   );
 };
 
+const Container = styled.div`
+  width: 300px;
+  height: 320px;
+  border-radius: 10%;
+  background-color: white;
+  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05), 0 15px 40px rgba(166, 173, 201, 0.2);
+  overflow: hidden;
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+`;
+
+type ImageProps = {
+  image: string;
+};
+
+const ImageContainer = styled.div<ImageProps>`
+  position: relative;
+  width: 100%;
+  height: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: ${({ image }: ImageProps) =>
+    `url(${image || 'https://www.pngkey.com/png/full/353-3534671_muy-bien-png-vault-boy.png'})`};
+`;
+
 interface MissionCardProps extends Omit<Mission, '__typename'> {
   user?: User;
   status?: string | null;
 }
 
-function MissionCard({ id, title, link, type, user, status, users }: MissionCardProps) {
+function MissionCard({ id, image, title, link, type, user, status, users }: MissionCardProps) {
   const queryClient = useQueryClient();
   const mutateConfig = {
     onSettled: () => {
@@ -104,7 +132,9 @@ function MissionCard({ id, title, link, type, user, status, users }: MissionCard
   };
 
   return (
-    <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+    <Container>
+      {/* @ts-ignore */}
+      <ImageContainer image={image} />
       <Box p='6'>
         <Box d='flex' alignItems='baseline'>
           {type && getTag(type)}
@@ -191,7 +221,7 @@ function MissionCard({ id, title, link, type, user, status, users }: MissionCard
           )}
         </Flex>
       </Box>
-    </Box>
+    </Container>
   );
 }
 

@@ -7,6 +7,7 @@ const listMissions = /* GraphQL */ `
     listMissions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        image
         title
         link
         type

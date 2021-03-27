@@ -1,11 +1,5 @@
 {
   "AppSyncApiName": "pipboy",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthCognitoUserPoolId": {
-    "Fn::GetAtt": [
-      "authpipboye4ffd66d",
-      "Outputs.UserPoolId"
-    ]
-  }
+  "DynamoDBEnableServerSideEncryption": false
 }
