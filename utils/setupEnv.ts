@@ -10,6 +10,8 @@ function setupEnv() {
     aws_appsync_region: process.env.AWS_APPSYNC_REGION,
     aws_appsync_authenticationType: 'API_KEY',
     aws_appsync_apiKey: process.env.AWS_APPSYNC_APIKEY,
+    aws_user_files_s3_bucket: process.env.AWS_USER_FILES_S3_BUCKET,
+    aws_user_files_s3_bucket_region: process.env.AWS_USER_FILES_S3_BUCKET_REGION,
   };
 }
 

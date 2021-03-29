@@ -34,5 +34,11 @@
       "providerPlugin": "awscloudformation",
       "service": "S3AndLambda"
     }
+  },
+  "storage": {
+    "pipBoyStorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

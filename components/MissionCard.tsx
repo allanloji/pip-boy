@@ -27,6 +27,7 @@ import useAddMission from 'utils/hooks/api/useAddMission';
 import useUpdateUserMission from 'utils/hooks/api/useUpdateUserMission';
 import { Mission } from 'src/API';
 import { profiles } from 'utils/profiles';
+import useS3File from 'utils/hooks/api/useS3File';
 
 const tagColors: { [key: string]: string } = {
   MAIN: 'teal',
@@ -107,6 +108,7 @@ function MissionCard({ id, image, title, link, type, user, status, users }: Miss
       queryClient.invalidateQueries('user');
     },
   };
+  const { data: imageURL } = useS3File(image);
   const { mutate: update } = useUpdateUserMission(updateConfig);
   const toast = useToast();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -131,10 +133,20 @@ function MissionCard({ id, image, title, link, type, user, status, users }: Miss
     setIsOpen(false);
   };
 
+  console.log(imageURL);
+
+  const getImage = () => {
+    if (image === '' || image?.includes('http')) {
+      return image;
+    }
+
+    return imageURL;
+  };
+
   return (
     <Container>
       {/* @ts-ignore */}
-      <ImageContainer image={image} />
+      <ImageContainer image={getImage()} />
       <Box p='6'>
         <Box d='flex' alignItems='baseline'>
           {type && getTag(type)}

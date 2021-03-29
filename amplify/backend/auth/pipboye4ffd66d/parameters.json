@@ -1,6 +1,6 @@
 {
     "identityPoolName": "pipboye4ffd66d_identitypool_e4ffd66d",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "pipboye4ffd66d",
     "userPoolName": "pipboye4ffd66d_userpool_e4ffd66d",
     "autoVerifiedAttributes": [
